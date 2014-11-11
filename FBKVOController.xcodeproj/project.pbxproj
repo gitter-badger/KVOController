@@ -469,6 +469,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 			};
@@ -485,6 +486,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 			};
