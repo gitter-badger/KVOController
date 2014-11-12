@@ -78,7 +78,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   return s;
 }
 
-#pragma mark _FBKVOInfo -
+#pragma mark _FBKVOInfo
 
 /**
  @abstract The key-value observation info.
@@ -345,37 +345,43 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 
 @end
 
-#pragma mark FBKVOController -
-
+#pragma mark FBKVOController class
 @implementation FBKVOController
-{
-  NSMapTable *_objectInfosMap;
-  OSSpinLock _lock;
-}
+    {
+    NSMapTable* _objectInfosMap;
+    OSSpinLock  _lock;
+    }
 
-#pragma mark Lifecycle -
+#pragma mark Lifecycle
++ ( instancetype ) controllerWithObserver: ( id )_Observer
+    {
+    return [ [ self alloc ] initWithObserver: _Observer ];
+    }
 
-+ (instancetype)controllerWithObserver:(id)observer
-{
-  return [[self alloc] initWithObserver:observer];
-}
+- ( instancetype ) initWithObserver: ( id )_Observer
+                     retainObserved: ( BOOL )_RetainObserved
+    {
+    if ( self = [ super init ] )
+        {
+        _observer = _Observer;
+        
+        NSPointerFunctionsOptions keyOptions = _RetainObserved ? ( NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality )
+                                                               : ( NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality );
 
-- (instancetype)initWithObserver:(id)observer retainObserved:(BOOL)retainObserved
-{
-  self = [super init];
-  if (nil != self) {
-    _observer = observer;
-    NSPointerFunctionsOptions keyOptions = retainObserved ? NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPointerPersonality : NSPointerFunctionsWeakMemory|NSPointerFunctionsObjectPointerPersonality;
-    _objectInfosMap = [[NSMapTable alloc] initWithKeyOptions:keyOptions valueOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality capacity:0];
-    _lock = OS_SPINLOCK_INIT;
-  }
-  return self;
-}
+        _objectInfosMap = [ [ NSMapTable alloc ] initWithKeyOptions: keyOptions
+                                                       valueOptions: NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPersonality
+                                                           capacity: 0 ];
+        _lock = OS_SPINLOCK_INIT;
+        }
 
-- (instancetype)initWithObserver:(id)observer
-{
-  return [self initWithObserver:observer retainObserved:YES];
-}
+    return self;
+    }
+
+- ( instancetype ) initWithObserver: ( id )_Observer
+    {
+    return [ self initWithObserver: _Observer
+                    retainObserved: YES ];
+    }
 
 - (void)dealloc
 {
