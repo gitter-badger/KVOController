@@ -92,9 +92,9 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
     __weak FBKVOController*     _controller;
     NSString*                   _keyPath;
     NSKeyValueObservingOptions  _options;
+    FBKVONotificationBlock      _block;
     SEL                         _action;
     void*                       _context;
-    FBKVONotificationBlock      _block;
     }
 
 - ( instancetype ) initWithController: ( FBKVOController* )_Controller
@@ -117,63 +117,96 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
     return self;
     }
 
-- (instancetype)initWithController:(FBKVOController *)controller keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
-{
-  return [self initWithController:controller keyPath:keyPath options:options block:block action:NULL context:NULL];
-}
+- ( instancetype ) initWithController: ( FBKVOController* )_Controller
+                              keyPath: ( NSString* )_KeyPath
+                              options: ( NSKeyValueObservingOptions )_Options
+                                block: ( FBKVONotificationBlock )_Block
+    {
+    return [ self initWithController: _Controller
+                             keyPath: _KeyPath
+                             options: _Options
+                               block: _Block
+                              action: NULL
+                             context: NULL ];
+    }
 
-- (instancetype)initWithController:(FBKVOController *)controller keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options action:(SEL)action
-{
-  return [self initWithController:controller keyPath:keyPath options:options block:NULL action:action context:NULL];
-}
+- ( instancetype ) initWithController: ( FBKVOController* )_Controller
+                              keyPath: ( NSString* )_KeyPath
+                              options: ( NSKeyValueObservingOptions )_Options
+                               action: ( SEL )_Action
+    {
+    return [ self initWithController: _Controller
+                             keyPath: _KeyPath
+                             options: _Options
+                               block: NULL
+                              action: _Action
+                             context: NULL ];
+    }
 
-- (instancetype)initWithController:(FBKVOController *)controller keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
-{
-  return [self initWithController:controller keyPath:keyPath options:options block:NULL action:NULL context:context];
-}
+- ( instancetype ) initWithController: ( FBKVOController* )_Controller
+                              keyPath: ( NSString* )_KeyPath
+                              options: ( NSKeyValueObservingOptions )_Options
+                              context: ( void* )_Context
+    {
+    return [ self initWithController: _Controller
+                             keyPath: _KeyPath
+                             options: _Options
+                               block: NULL
+                              action: NULL
+                             context: _Context ];
+    }
 
-- (instancetype)initWithController:(FBKVOController *)controller keyPath:(NSString *)keyPath
-{
-  return [self initWithController:controller keyPath:keyPath options:0 block:NULL action:NULL context:NULL];
-}
+- ( instancetype ) initWithController: ( FBKVOController* )_Controller
+                              keyPath: ( NSString* )_KeyPath
+    {
+    return [ self initWithController: _Controller
+                             keyPath: _KeyPath
+                             options: 0
+                               block: NULL
+                              action: NULL
+                             context: NULL ];
+    }
 
-- (NSUInteger)hash
-{
-  return [_keyPath hash];
-}
+- ( NSUInteger ) hash
+    {
+    return [ _keyPath hash ];
+    }
 
-- (BOOL)isEqual:(id)object
-{
-  if (nil == object) {
-    return NO;
-  }
-  if (self == object) {
-    return YES;
-  }
-  if (![object isKindOfClass:[self class]]) {
-    return NO;
-  }
-  return [_keyPath isEqualToString:((_FBKVOInfo *)object)->_keyPath];
-}
+- ( BOOL ) isEqual: ( id )_Object
+    {
+    if ( !_Object )
+        return NO;
 
-- (NSString *)debugDescription
-{
-  NSMutableString *s = [NSMutableString stringWithFormat:@"<%@:%p keyPath:%@", NSStringFromClass([self class]), self, _keyPath];
-  if (0 != _options) {
-    [s appendFormat:@" options:%@", describe_options(_options)];
-  }
-  if (NULL != _action) {
-    [s appendFormat:@" action:%@", NSStringFromSelector(_action)];
-  }
-  if (NULL != _context) {
-    [s appendFormat:@" context:%p", _context];
-  }
-  if (NULL != _block) {
-    [s appendFormat:@" block:%p", _block];
-  }
-  [s appendString:@">"];
-  return s;
-}
+    if ( self == _Object)
+        return YES;
+
+    if ( ![ _Object isKindOfClass: [ self class ] ] )
+        return NO;
+
+    return [ _keyPath isEqualToString: ( ( _FBKVOInfo* )_Object )->_keyPath ];
+    }
+
+- ( NSString* ) debugDescription
+    {
+    NSMutableString* desc = [ NSMutableString stringWithFormat: @"<%@: %p   keyPath: %@"
+                                                              , NSStringFromClass( [ self class ] )
+                                                              , self
+                                                              , _keyPath ];
+    if ( 0 != _options )
+        [ desc appendFormat:@" options: %@", describe_options( _options ) ];
+
+    if ( _action )
+        [ desc appendFormat: @" action: %@", NSStringFromSelector( _action ) ];
+
+    if ( _context )
+        [ desc appendFormat: @" context: %p", _context ];
+
+    if ( _block )
+        [ desc appendFormat: @" block: %p", _block ];
+
+    [ desc appendString: @">" ];
+    return desc;
+    }
 
 @end // _FBKVOInfo class
 
