@@ -12,11 +12,11 @@
 #import <libkern/OSAtomic.h>
 #import <objc/message.h>
 
-#if !__has_feature(objc_arc)
-#error This file must be compiled with ARC. Convert your project to ARC or specify the -fobjc-arc flag.
+#if !__has_feature( objc_arc )
+    #error This file must be compiled with ARC. Convert your project to ARC or specify the -fobjc-arc flag.
 #endif
 
-#pragma mark Utilities -
+#pragma mark Utilities
 
 static NSString *describe_option(NSKeyValueObservingOptions option)
 {
@@ -78,8 +78,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   return s;
 }
 
-#pragma mark _FBKVOInfo
-
+#pragma mark _FBKVOInfo class
 /**
  @abstract The key-value observation info.
  @discussion Object equality is only used within the scope of a controller instance. Safely omit controller from equality definition.
@@ -88,29 +87,35 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 @end
 
 @implementation _FBKVOInfo
-{
+    {
 @public
-  __weak FBKVOController *_controller;
-  NSString *_keyPath;
-  NSKeyValueObservingOptions _options;
-  SEL _action;
-  void *_context;
-  FBKVONotificationBlock _block;
-}
+    __weak FBKVOController*     _controller;
+    NSString*                   _keyPath;
+    NSKeyValueObservingOptions  _options;
+    SEL                         _action;
+    void*                       _context;
+    FBKVONotificationBlock      _block;
+    }
 
-- (instancetype)initWithController:(FBKVOController *)controller keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block action:(SEL)action context:(void *)context
-{
-  self = [super init];
-  if (nil != self) {
-    _controller = controller;
-    _block = [block copy];
-    _keyPath = [keyPath copy];
-    _options = options;
-    _action = action;
-    _context = context;
-  }
-  return self;
-}
+- ( instancetype ) initWithController: ( FBKVOController* )_Controller
+                              keyPath: ( NSString* )_KeyPath
+                              options: ( NSKeyValueObservingOptions )_Options
+                                block: ( FBKVONotificationBlock )_Block
+                               action: ( SEL )_Action
+                              context: ( void* )_Context
+    {
+    if ( self = [ super init ] )
+        {
+        _controller = _Controller;
+        _block = [ _Block copy ];
+        _keyPath = [ _KeyPath copy ];
+        _options = _Options;
+        _action = _Action;
+        _context = _Context;
+        }
+
+    return self;
+    }
 
 - (instancetype)initWithController:(FBKVOController *)controller keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
 {
@@ -170,10 +175,9 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   return s;
 }
 
-@end
+@end // _FBKVOInfo class
 
-#pragma mark _FBKVOSharedController -
-
+#pragma mark _FBKVOSharedController
 /**
  @abstract The shared KVO controller instance.
  @discussion Acts as a receptionist, receiving and forwarding KVO notifications.
@@ -421,38 +425,41 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
     return desc;
     }
 
-#pragma mark Utilities
-- (void)_observe:(id)object info:(_FBKVOInfo *)info
-{
-  // lock
-  OSSpinLockLock(&_lock);
+#pragma mark Internal Utilities
+- ( void ) _observe: ( id ) _Object
+               info: ( _FBKVOInfo* )_Info
+    {
+    // lock
+    OSSpinLockLock( &_lock );
   
-  NSMutableSet *infos = [_objectInfosMap objectForKey:object];
+    NSMutableSet* infos = [ _objectInfosMap objectForKey: _Object ];
   
-  // check for info existence
-  _FBKVOInfo *existingInfo = [infos member:info];
-  if (nil != existingInfo) {
-    NSLog(@"observation info already exists %@", existingInfo);
+    // check for info existence
+    _FBKVOInfo* existingInfo = [ infos member: _Info ];
+    if ( existingInfo )
+        {
+        NSLog( @"observation info already exists %@", existingInfo );
     
-    // unlock and return
-    OSSpinLockUnlock(&_lock);
-    return;
-  }
+        // unlock and return
+        OSSpinLockUnlock( &_lock );
+        return;
+        }
   
-  // lazilly create set of infos
-  if (nil == infos) {
-    infos = [NSMutableSet set];
-    [_objectInfosMap setObject:infos forKey:object];
-  }
+    // lazilly create set of infos
+    if ( !infos )
+        {
+        infos = [ NSMutableSet set ];
+        [ _objectInfosMap setObject: infos forKey: _Object ];
+        }
   
-  // add info and oberve
-  [infos addObject:info];
+    // add info and oberve
+    [ infos addObject: _Info ];
   
-  // unlock prior to callout
-  OSSpinLockUnlock(&_lock);
+    // unlock prior to callout
+    OSSpinLockUnlock( &_lock );
   
-  [[_FBKVOSharedController sharedController] observe:object info:info];
-}
+    [ [ _FBKVOSharedController sharedController ] observe: _Object info: _Info ];
+    }
 
 - (void)_unobserve:(id)object info:(_FBKVOInfo *)info
 {
@@ -520,8 +527,7 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
   }
 }
 
-#pragma mark API -
-
+#pragma mark API
 - (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
 {
   NSAssert(0 != keyPath.length && NULL != block, @"missing required parameters observe:%@ keyPath:%@ block:%p", object, keyPath, block);

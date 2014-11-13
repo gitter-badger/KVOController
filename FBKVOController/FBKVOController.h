@@ -38,7 +38,7 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @return The initialized KVO controller instance.
  @discussion Use retainObserved = NO when a strong reference between controller and observee would create a retain loop. When not retaining observees, special care must be taken to remove observation info prior to observee dealloc.
  */
-- (instancetype)initWithObserver:(id)observer retainObserved:(BOOL)retainObserved;
+- ( instancetype ) initWithObserver: ( id )_Observer retainObserved: ( BOOL )_RetainObserved;
 
 /**
  @abstract Convenience initializer.
@@ -126,12 +126,12 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @param object The object to unobserve.
  @discussion If not observing object, or unobserving nil, this method results in no operation.
  */
-- (void)unobserve:(id)object;
+- ( void ) unobserve: ( id )_Object;
 
 /**
  @abstract Unobserve all objects.
  @discussion If not observing any objects, this method results in no operation.
  */
-- (void)unobserveAll;
+- ( void )unobserveAll;
 
 @end // FBKVOController class
