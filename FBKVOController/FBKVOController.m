@@ -365,11 +365,11 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
         {
         _observer = _Observer;
         
-        NSPointerFunctionsOptions keyOptions = _RetainObserved ? ( NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPointerPersonality )
-                                                               : ( NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality );
+        NSPointerFunctionsOptions keyOptions = _RetainObserved ? ( NSMapTableStrongMemory | NSMapTableObjectPointerPersonality )
+                                                               : ( NSMapTableWeakMemory | NSMapTableObjectPointerPersonality );
 
         _objectInfosMap = [ [ NSMapTable alloc ] initWithKeyOptions: keyOptions
-                                                       valueOptions: NSPointerFunctionsStrongMemory | NSPointerFunctionsObjectPersonality
+                                                       valueOptions: NSMapTableStrongMemory | NSMapTableObjectPointerPersonality
                                                            capacity: 0 ];
         _lock = OS_SPINLOCK_INIT;
         }
@@ -383,43 +383,45 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
                     retainObserved: YES ];
     }
 
-- (void)dealloc
-{
-  [self unobserveAll];
-}
+- ( void ) dealloc
+    {
+    [ self unobserveAll ];
+    }
 
-#pragma mark Properties -
+#pragma mark Properties
+- ( NSString* ) debugDescription
+    {
+    NSMutableString* desc = [ NSMutableString stringWithFormat: @"<%@: %p", NSStringFromClass( [ self class ] ), self ];
+    [ desc appendFormat: @"     observer: <%@: %p>", NSStringFromClass( [ _observer class ] ), _observer ];
+  
+    // lock
+    OSSpinLockLock( &_lock );
+  
+    if ( 0 != _objectInfosMap.count )
+        [ desc appendString: @"\n  " ];
+  
+    for ( id object in _objectInfosMap )
+        {
+        NSMutableSet* infos = [ _objectInfosMap objectForKey: object ];
+        NSMutableArray* infoDescriptions = [ NSMutableArray arrayWithCapacity: infos.count ];
 
-- (NSString *)debugDescription
-{
-  NSMutableString *s = [NSMutableString stringWithFormat:@"<%@:%p", NSStringFromClass([self class]), self];
-  [s appendFormat:@" observer:<%@:%p>", NSStringFromClass([_observer class]), _observer];
-  
-  // lock
-  OSSpinLockLock(&_lock);
-  
-  if (0 != _objectInfosMap.count) {
-    [s appendString:@"\n  "];
-  }
-  
-  for (id object in _objectInfosMap) {
-    NSMutableSet *infos = [_objectInfosMap objectForKey:object];
-    NSMutableArray *infoDescriptions = [NSMutableArray arrayWithCapacity:infos.count];
-    [infos enumerateObjectsUsingBlock:^(_FBKVOInfo *info, BOOL *stop) {
-      [infoDescriptions addObject:info.debugDescription];
-    }];
-    [s appendFormat:@"%@ -> %@", object, infoDescriptions];
-  }
-  
-  // unlock
-  OSSpinLockUnlock(&_lock);
-  
-  [s appendString:@">"];
-  return s;
-}
+        [ infos enumerateObjectsUsingBlock:
+            ^( _FBKVOInfo* _Info, BOOL* _Stop )
+                {
+                [ infoDescriptions addObject: _Info.debugDescription ];
+                } ];
 
-#pragma mark Utilities -
+        [ desc appendFormat: @"%@ -> %@", object, infoDescriptions ];
+        }
+  
+    // unlock
+    OSSpinLockUnlock( &_lock );
+  
+    [ desc appendString: @">" ];
+    return desc;
+    }
 
+#pragma mark Utilities
 - (void)_observe:(id)object info:(_FBKVOInfo *)info
 {
   // lock
