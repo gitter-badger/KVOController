@@ -292,7 +292,7 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
     return self;
     }
 
-- (NSString *)debugDescription
+- ( NSString* ) debugDescription
 {
   NSMutableString *s = [NSMutableString stringWithFormat:@"<%@:%p", NSStringFromClass([self class]), self];
   
@@ -313,93 +313,100 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
   return s;
 }
 
-- (void)observe:(id)object info:(_FBKVOInfo *)info
-{
-  if (nil == info) {
-    return;
-  }
+- ( void ) observe: ( id )_Object
+              info: ( _FBKVOInfo* )_Info
+    {
+    if ( !_Info )
+        return;
   
-  // register info
-  OSSpinLockLock(&_lock);
-  [_infos addObject:info];
-  OSSpinLockUnlock(&_lock);
+    // register info
+    OSSpinLockLock( &_lock );
+        [ _infos addObject: _Info ];
+    OSSpinLockUnlock( &_lock );
   
-  // add observer
-  [object addObserver:self forKeyPath:info->_keyPath options:info->_options context:(void *)info];
-}
-
-- (void)unobserve:(id)object info:(_FBKVOInfo *)info
-{
-  if (nil == info) {
-    return;
-  }
-  
-  // unregister info
-  OSSpinLockLock(&_lock);
-  [_infos removeObject:info];
-  OSSpinLockUnlock(&_lock);
-  
-  // remove observer
-  [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
-}
-
-- (void)unobserve:(id)object infos:(NSSet *)infos
-{
-  if (0 == infos.count) {
-    return;
-  }
-  
-  // unregister info
-  OSSpinLockLock(&_lock);
-  for (_FBKVOInfo *info in infos) {
-    [_infos removeObject:info];
-  }
-  OSSpinLockUnlock(&_lock);
-  
-  // remove observer
-  for (_FBKVOInfo *info in infos) {
-    [object removeObserver:self forKeyPath:info->_keyPath context:(void *)info];
-  }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-  NSAssert(context, @"missing context keyPath:%@ object:%@ change:%@", keyPath, object, change);
-  
-  _FBKVOInfo *info;
-  
-  {
-    // lookup context in registered infos, taking out a strong reference only if it exists
-    OSSpinLockLock(&_lock);
-    info = [_infos member:(__bridge id)context];
-    OSSpinLockUnlock(&_lock);
-  }
-  
-  if (nil != info) {
-    
-    // take strong reference to controller
-    FBKVOController *controller = info->_controller;
-    if (nil != controller) {
-      
-      // take strong reference to observer
-      id observer = controller.observer;
-      if (nil != observer) {
-        
-        // dispatch custom block or action, fall back to default action
-        if (info->_block) {
-          info->_block(observer, object, change);
-        } else if (info->_action) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-          [observer performSelector:info->_action withObject:change withObject:object];
-#pragma clang diagnostic pop
-        } else {
-          [observer observeValueForKeyPath:keyPath ofObject:object change:change context:info->_context];
-        }
-      }
+    // add observer
+    [ _Object addObserver: self
+               forKeyPath: _Info->_keyPath
+                  options: _Info->_options
+                  context: ( void* )_Info ];
     }
-  }
-}
+
+- ( void ) unobserve: ( id )_Object
+                info: ( _FBKVOInfo* )_Info
+    {
+    if ( !_Info )
+        return;
+  
+    // unregister info
+    OSSpinLockLock( &_lock );
+        [ _infos removeObject: _Info ];
+    OSSpinLockUnlock( &_lock );
+  
+    // remove observer
+    [ _Object removeObserver: self
+                  forKeyPath: _Info->_keyPath
+                     context: ( void* )_Info ];
+    }
+
+- ( void ) unobserve: ( id )_Object
+               infos: ( NSSet* )_Infos
+    {
+    if ( 0 == _Infos.count )
+        return;
+  
+    // unregister info
+    OSSpinLockLock( &_lock );
+        for ( _FBKVOInfo* info in _Infos )
+            [ _infos removeObject: info ];
+    OSSpinLockUnlock( &_lock );
+  
+    // remove observer
+    for ( _FBKVOInfo* info in _Infos )
+        {
+        [ _Object removeObserver: self
+                      forKeyPath: info->_keyPath
+                         context: ( void* )info ];
+        }
+    }
+
+- ( void ) observeValueForKeyPath: ( NSString* )_KeyPath
+                         ofObject: ( id )_Object
+                           change: ( NSDictionary* )_Change
+                          context: ( void* )_Context
+    {
+    NSAssert( _Context, @"missing context keyPath:%@ object:%@ change:%@", _KeyPath, _Object, _Change );
+  
+    _FBKVOInfo* info;
+
+    // lookup context in registered infos, taking out a strong reference only if it exists
+    OSSpinLockLock( &_lock );
+        info = [ _infos member: ( __bridge id )_Context ];
+    OSSpinLockUnlock( &_lock );
+  
+    if ( info )
+        {
+        // take strong reference to controller
+        FBKVOController* controller = info->_controller;
+        if ( controller )
+            {
+            // take strong reference to observer
+            id observer = controller.observer;
+            if ( observer )
+                {
+                // dispatch custom block or action, fall back to default action
+                if ( info->_block )
+                    info->_block( observer, _Object, _Change );
+                else if ( info->_action )
+                #pragma clang diagnostic push
+                #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                    [ observer performSelector: info->_action withObject: _Change withObject: _Object ];
+                #pragma clang diagnostic pop
+                else
+                    [ observer observeValueForKeyPath: _KeyPath ofObject: _Object change: _Change context: info->_context ];
+                }
+            }
+        }
+    }
 
 @end
 
@@ -582,20 +589,28 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
 }
 
 #pragma mark API
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
-{
-  NSAssert(0 != keyPath.length && NULL != block, @"missing required parameters observe:%@ keyPath:%@ block:%p", object, keyPath, block);
-  if (nil == object || 0 == keyPath.length || NULL == block) {
-    return;
-  }
-  
-  // create info
-  _FBKVOInfo *info = [[_FBKVOInfo alloc] initWithController:self keyPath:keyPath options:options block:block];
-  
-  // observe object with info
-  [self _observe:object info:info];
-}
+- ( void ) observe: ( id )_Object
+           keyPath: ( NSString* )_KeyPath
+           options: ( NSKeyValueObservingOptions )_Options
+             block: ( FBKVONotificationBlock )_Block
+    {
+    NSAssert( ( 0 != _KeyPath.length ) && _Block
+            , @"missing required parameters observe: %@     keyPath: %@ block: %p"
+            , _Object, _KeyPath, _Block
+            );
 
+    if ( !_Object || 0 == _KeyPath.length || !_Block )
+        return;
+  
+    // create info
+    _FBKVOInfo* info = [ [ _FBKVOInfo alloc ] initWithController: self
+                                                         keyPath: _KeyPath
+                                                         options: _Options
+                                                           block: _Block ];
+  
+    // observe object with info
+    [ self _observe: _Object info: info ];
+    }
 
 - (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
 {
