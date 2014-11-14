@@ -71,8 +71,10 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @param action The observer selector called on key-value change.
  @discussion On key-value change, the observer's action selector is called. The selector provided should take the form of -propertyDidChange, -propertyDidChange: or -propertyDidChange:object:, where optional parameters delivered will be KVO change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation.
  */
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options action:(SEL)action;
-
+- ( void ) observe: ( id )_Object
+           keyPath: ( NSString* )_KeyPath
+           options: ( NSKeyValueObservingOptions )_Options
+            action: ( SEL )_Action;
 /**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
@@ -81,8 +83,10 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @param context The context specified.
  @discussion On key-value change, the observer's -observeValueForKeyPath:ofObject:change:context: method is called. Observing an already observed object key path or nil results in no operation.
  */
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
-
+- ( void ) observe: ( id )_Object
+           keyPath: ( NSString* )_KeyPath
+           options: ( NSKeyValueObservingOptions )_Options
+           context: ( void* )_Context;
 
 /**
  @abstract Registers observer for key-value change notification.
@@ -92,8 +96,10 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @param block The block to execute on notification.
  @discussion On key-value change, the specified block is called. Inorder to avoid retain loops, the block must avoid referencing the KVO controller or an owner thereof. Observing an already observed object key path or nil results in no operation.
  */
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block;
-
+- ( void ) observe: ( id )_Object
+          keyPaths: ( NSArray* )_KeyPaths
+           options: ( NSKeyValueObservingOptions )_Options
+             block: ( FBKVONotificationBlock )_Block;
 /**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
@@ -102,8 +108,10 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @param action The observer selector called on key-value change.
  @discussion On key-value change, the observer's action selector is called. The selector provided should take the form of -propertyDidChange, -propertyDidChange: or -propertyDidChange:object:, where optional parameters delivered will be KVO change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation.
  */
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options action:(SEL)action;
-
+- ( void ) observe: ( id )_Object
+          keyPaths: ( NSArray* )_KeyPaths
+           options: ( NSKeyValueObservingOptions )_Options
+            action: ( SEL )_Action;
 /**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
@@ -112,8 +120,10 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @param context The context specified.
  @discussion On key-value change, the observer's -observeValueForKeyPath:ofObject:change:context: method is called. Observing an already observed object key path or nil results in no operation.
  */
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(void *)context;
-
+- ( void ) observe: ( id )_Object
+          keyPaths: ( NSArray* )_KeyPaths
+           options: ( NSKeyValueObservingOptions )_Options
+           context: ( void* )_Context;
 
 /**
  @abstract Unobserve object key path.
@@ -121,7 +131,8 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @param keyPath The key path to observe.
  @discussion If not observing object key path, or unobserving nil, this method results in no operation.
  */
-- (void)unobserve:(id)object keyPath:(NSString *)keyPath;
+- ( void ) unobserve: ( id )_Object
+             keyPath: ( NSString* )_KeyPath;
 
 /**
  @abstract Unobserve all object key paths.
@@ -134,6 +145,6 @@ typedef void ( ^FBKVONotificationBlock )( id _Observer, id _Object, NSDictionary
  @abstract Unobserve all objects.
  @discussion If not observing any objects, this method results in no operation.
  */
-- ( void )unobserveAll;
+- ( void ) unobserveAll;
 
 @end // FBKVOController class
