@@ -608,38 +608,58 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
                                                          keyPath: _KeyPath
                                                          options: _Options
                                                            block: _Block ];
-  
     // observe object with info
     [ self _observe: _Object info: info ];
     }
 
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block
-{
-  NSAssert(0 != keyPaths.count && NULL != block, @"missing required parameters observe:%@ keyPath:%@ block:%p", object, keyPaths, block);
-  if (nil == object || 0 == keyPaths.count || NULL == block) {
-    return;
-  }
-  
-  for (NSString *keyPath in keyPaths)
-  {
-    [self observe:object keyPath:keyPath options:options block:block];
-  }
-}
+- ( void )observe: ( id )_Object
+         keyPaths: ( NSArray* )_KeyPaths
+          options: ( NSKeyValueObservingOptions )_Options
+            block: ( FBKVONotificationBlock )_Block
+    {
+    NSAssert( 0 != _KeyPaths.count && _Block
+            , @"missing required parameters observe: %@ keyPath: %@ block: %p"
+            , _Object, _KeyPaths, _Block
+            );
 
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options action:(SEL)action
-{
-  NSAssert(0 != keyPath.length && NULL != action, @"missing required parameters observe:%@ keyPath:%@ action:%@", object, keyPath, NSStringFromSelector(action));
-  NSAssert([_observer respondsToSelector:action], @"%@ does not respond to %@", _observer, NSStringFromSelector(action));
-  if (nil == object || 0 == keyPath.length || NULL == action) {
-    return;
-  }
+    if ( !_Object || 0 == _KeyPaths.count || !_Block )
+        return;
   
-  // create info
-  _FBKVOInfo *info = [[_FBKVOInfo alloc] initWithController:self keyPath:keyPath options:options action:action];
+    for ( NSString* keyPath in _KeyPaths )
+        {
+        [ self observe: _Object
+               keyPath: keyPath
+               options: _Options
+                 block: _Block ];
+        }
+    }
+
+- ( void )observe: ( id )_Object
+          keyPath: ( NSString* )_KeyPath
+          options: ( NSKeyValueObservingOptions )_Options
+           action: ( SEL )_Action
+    {
+    NSAssert( 0 != _KeyPath.length && _Action
+            , @"missing required parameters observe: %@ keyPath: %@ action: %@"
+            , _Object, _KeyPath, NSStringFromSelector( _Action )
+            );
+
+    NSAssert( [ _observer respondsToSelector: _Action ]
+            , @"%@ does not respond to %@"
+            , _observer, NSStringFromSelector( _Action )
+            );
+
+    if ( !_Object || 0 == _KeyPath.length || !_Action )
+        return;
   
-  // observe object with info
-  [self _observe:object info:info];
-}
+    // create info
+    _FBKVOInfo* info = [ [ _FBKVOInfo alloc ] initWithController: self
+                                                         keyPath: _KeyPath
+                                                         options: _Options
+                                                          action: _Action ];
+    // observe object with info
+    [ self _observe: _Object info: info ];
+    }
 
 - (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options action:(SEL)action
 {
@@ -691,18 +711,17 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
   [self _unobserve:object info:info];
 }
 
-- (void)unobserve:(id)object
-{
-  if (nil == object) {
-    return;
-  }
+- ( void ) unobserve: ( id )_Object
+    {
+    if ( !_Object )
+        return;
   
-  [self _unobserve:object];
-}
+    [ self _unobserve: _Object ];
+    }
 
-- (void)unobserveAll
-{
-  [self _unobserveAll];
-}
+- ( void ) unobserveAll
+    {
+    [ self _unobserveAll ];
+    }
 
 @end
