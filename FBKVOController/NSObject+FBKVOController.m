@@ -1,11 +1,42 @@
-/**
- Copyright (c) 2014-present, Facebook, Inc.
- All rights reserved.
- 
- This source code is licensed under the BSD-style license found in the
- LICENSE file in the root directory of this source tree. An additional grant
- of patent rights can be found in the PATENTS file in the same directory.
- */
+///:
+/*****************************************************************************
+ **                                                                         **
+ **                               .======.                                  **
+ **                               | INRI |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                      .========'      '========.                         **
+ **                      |   _      xxxx      _   |                         **
+ **                      |  /_;-.__ / _\  _.-;_\  |                         **
+ **                      |     `-._`'`_/'`.-'     |                         **
+ **                      '========.`\   /`========'                         **
+ **                               | |  / |                                  **
+ **                               |/-.(  |                                  **
+ **                               |\_._\ |                                  **
+ **                               | \ \`;|                                  **
+ **                               |  > |/|                                  **
+ **                               | / // |                                  **
+ **                               | |//  |                                  **
+ **                               | \(\  |                                  **
+ **                               |  ``  |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                   \\    _  _\\| \//  |//_   _ \// _                     **
+ **                  ^ `^`^ ^`` `^ ^` ``^^`  `^^` `^ `^                     **
+ **                                                                         **
+ **                  Created by Facebook Inc. Originally                    **
+ **               https://github.com/facebook/KVOController                 **
+ **               Copyright (c) 2014-present, Facebook, Inc.                **
+ **                         ALL RIGHTS RESERVED.                            **
+ **                                                                         **
+ **              Forked, Changed and Republished by Tong Guo                **
+ **                 https://github.com/TongG/KVOController                  **
+ **                      Copyright (c) 2014 Tong G.                         **
+ **                         ALL RIGHTS RESERVED.                            **
+ **                                                                         **
+ ****************************************************************************/
 
 #import "NSObject+FBKVOController.h"
 
@@ -16,7 +47,7 @@
     #error This file must be compiled with ARC. Convert your project to ARC or specify the -fobjc-arc flag.
 #endif
 
-#pragma mark NSObject Category -
+#pragma mark NSObject Category
 void static* NSObjectKVOControllerKey = &NSObjectKVOControllerKey;
 void static* NSObjectKVOControllerNonRetainingKey = &NSObjectKVOControllerNonRetainingKey;
 
@@ -64,3 +95,20 @@ void static* NSObjectKVOControllerNonRetainingKey = &NSObjectKVOControllerNonRet
     }
 
 @end
+
+//////////////////////////////////////////////////////////////////////////////
+
+/*****************************************************************************
+ **                                                                         **
+ **      _________                                      _______             **
+ **     |___   ___|                                   / ______ \            **
+ **         | |     _______   _______   _______      | /      |_|           **
+ **         | |    ||     || ||     || ||     ||     | |    _ __            **
+ **         | |    ||     || ||     || ||     ||     | |   |__  \           **
+ **         | |    ||     || ||     || ||     ||     | \_ _ __| |  _        **
+ **         |_|    ||_____|| ||     || ||_____||      \________/  |_|       **
+ **                                           ||                            **
+ **                                    ||_____||                            **
+ **                                                                         **
+ ****************************************************************************/
+///:~
