@@ -1,0 +1,65 @@
+\hypertarget{interface___f_b_k_v_o_shared_controller}{\section{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller Class Reference}
+\label{interface___f_b_k_v_o_shared_controller}\index{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}}
+}
+Inheritance diagram for \+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{interface___f_b_k_v_o_shared_controller}
+\end{center}
+\end{figure}
+\subsection*{Instance Methods}
+\begin{DoxyCompactItemize}
+\item 
+(void) -\/ \hyperlink{interface___f_b_k_v_o_shared_controller_a3c86b19c63b309078c372d3ba9c82423}{observe\+:info\+:}
+\item 
+(void) -\/ \hyperlink{interface___f_b_k_v_o_shared_controller_a8c1ecb634733652d00e1d0171eea4856}{unobserve\+:info\+:}
+\item 
+(void) -\/ \hyperlink{interface___f_b_k_v_o_shared_controller_a672c0e721f004e5f34ea8e497d9f4841}{unobserve\+:infos\+:}
+\end{DoxyCompactItemize}
+\subsection*{Class Methods}
+\begin{DoxyCompactItemize}
+\item 
+(instancetype) + \hyperlink{interface___f_b_k_v_o_shared_controller_afc8dc49222e1a694297251398e1a5341}{shared\+Controller}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The shared K\+V\+O controller instance.  Acts as a receptionist, receiving and forwarding K\+V\+O notifications. 
+
+\subsection{Method Documentation}
+\hypertarget{interface___f_b_k_v_o_shared_controller_a3c86b19c63b309078c372d3ba9c82423}{\index{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}!observe\+:info\+:@{observe\+:info\+:}}
+\index{observe\+:info\+:@{observe\+:info\+:}!\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}}
+\subsubsection[{observe\+:info\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) observe\+: 
+\begin{DoxyParamCaption}
+\item[{(id)}]{object}
+\item[{info:({\bf \+\_\+\+F\+B\+K\+V\+O\+Info}$\ast$)}]{info}
+\end{DoxyParamCaption}
+}}\label{interface___f_b_k_v_o_shared_controller_a3c86b19c63b309078c372d3ba9c82423}
+observe an object, info pair \hypertarget{interface___f_b_k_v_o_shared_controller_afc8dc49222e1a694297251398e1a5341}{\index{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}!shared\+Controller@{shared\+Controller}}
+\index{shared\+Controller@{shared\+Controller}!\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}}
+\subsubsection[{shared\+Controller}]{\setlength{\rightskip}{0pt plus 5cm}+ (instancetype) shared\+Controller 
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+}}\label{interface___f_b_k_v_o_shared_controller_afc8dc49222e1a694297251398e1a5341}
+A shared instance that never deallocates. \hypertarget{interface___f_b_k_v_o_shared_controller_a8c1ecb634733652d00e1d0171eea4856}{\index{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}!unobserve\+:info\+:@{unobserve\+:info\+:}}
+\index{unobserve\+:info\+:@{unobserve\+:info\+:}!\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}}
+\subsubsection[{unobserve\+:info\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) unobserve\+: 
+\begin{DoxyParamCaption}
+\item[{(id)}]{object}
+\item[{info:({\bf \+\_\+\+F\+B\+K\+V\+O\+Info} $\ast$)}]{info}
+\end{DoxyParamCaption}
+}}\label{interface___f_b_k_v_o_shared_controller_a8c1ecb634733652d00e1d0171eea4856}
+unobserve an object, info pair \hypertarget{interface___f_b_k_v_o_shared_controller_a672c0e721f004e5f34ea8e497d9f4841}{\index{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}!unobserve\+:infos\+:@{unobserve\+:infos\+:}}
+\index{unobserve\+:infos\+:@{unobserve\+:infos\+:}!\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller@{\+\_\+\+F\+B\+K\+V\+O\+Shared\+Controller}}
+\subsubsection[{unobserve\+:infos\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) unobserve\+: 
+\begin{DoxyParamCaption}
+\item[{(id)}]{object}
+\item[{infos:(N\+S\+Set $\ast$)}]{infos}
+\end{DoxyParamCaption}
+}}\label{interface___f_b_k_v_o_shared_controller_a672c0e721f004e5f34ea8e497d9f4841}
+unobserve an object with a set of infos 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+F\+B\+K\+V\+O\+Controller/F\+B\+K\+V\+O\+Controller.\+m\end{DoxyCompactItemize}
