@@ -18,65 +18,77 @@
 
 #pragma mark Utilities
 
-static NSString *describe_option(NSKeyValueObservingOptions option)
-{
-  switch (option) {
-    case NSKeyValueObservingOptionNew:
-      return @"NSKeyValueObservingOptionNew";
-      break;
-    case NSKeyValueObservingOptionOld:
-      return @"NSKeyValueObservingOptionOld";
-      break;
-    case NSKeyValueObservingOptionInitial:
-      return @"NSKeyValueObservingOptionInitial";
-      break;
-    case NSKeyValueObservingOptionPrior:
-      return @"NSKeyValueObservingOptionPrior";
-      break;
-    default:
-      NSCAssert(NO, @"unexpected option %tu", option);
-      break;
-  }
-  return nil;
-}
+static NSString* describe_option( NSKeyValueObservingOptions _Option )
+    {
+    switch ( _Option )
+        {
+        case NSKeyValueObservingOptionNew:
+            {
+            return @"NSKeyValueObservingOptionNew";
+            } break;
 
-static void append_option_description(NSMutableString *s, NSUInteger option)
-{
-  if (0 == s.length) {
-    [s appendString:describe_option(option)];
-  } else {
-    [s appendString:@"|"];
-    [s appendString:describe_option(option)];
-  }
-}
+        case NSKeyValueObservingOptionOld:
+            {
+            return @"NSKeyValueObservingOptionOld";
+            } break;
 
-static NSUInteger enumerate_flags(NSUInteger *ptrFlags)
-{
-  NSCAssert(ptrFlags, @"expected ptrFlags");
-  if (!ptrFlags) {
-    return 0;
-  }
+        case NSKeyValueObservingOptionInitial:
+            {
+            return @"NSKeyValueObservingOptionInitial";
+            } break;
+
+        case NSKeyValueObservingOptionPrior:
+            {
+            return @"NSKeyValueObservingOptionPrior";
+            } break;
+
+        default:
+            {
+            NSCAssert( NO, @"unexpected option %tu", _Option );
+            } break;
+        }
+
+    return nil;
+    }
+
+static void append_option_description( NSMutableString* _Desc, NSUInteger _Option )
+    {
+    if ( 0 == _Desc.length )
+        [ _Desc appendString: describe_option( _Option ) ];
+    else
+        [ _Desc appendString: @"|" ];
+
+    [ _Desc appendString: describe_option( _Option ) ];
+    }
+
+static NSUInteger enumerate_flags( NSUInteger* ptrFlags )
+    {
+    NSCAssert( ptrFlags, @"expected ptrFlags" );
+    if ( !ptrFlags )
+        return 0;
   
-  NSUInteger flags = *ptrFlags;
-  if (!flags) {
-    return 0;
-  }
-  
-  NSUInteger flag = 1 << __builtin_ctzl(flags);
-  flags &= ~flag;
-  *ptrFlags = flags;
-  return flag;
-}
+    NSUInteger flags = *ptrFlags;
+    if ( !flags )
+        return 0;
 
-static NSString *describe_options(NSKeyValueObservingOptions options)
-{
-  NSMutableString *s = [NSMutableString string];
-  NSUInteger option;
-  while (0 != (option = enumerate_flags(&options))) {
-    append_option_description(s, option);
-  }
-  return s;
-}
+  
+    NSUInteger flag = 1 << __builtin_ctzl( flags );
+    flags &= ~flag;
+    *ptrFlags = flags;
+
+    return flag;
+    }
+
+static NSString* describe_options( NSKeyValueObservingOptions options )
+    {
+    NSMutableString* s = [ NSMutableString string ];
+    NSUInteger option;
+
+    while ( 0 != ( option = enumerate_flags( &options ) ) )
+        append_option_description( s, option );
+
+    return s;
+    }
 
 #pragma mark _FBKVOInfo class
 /**
@@ -218,10 +230,10 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 @interface _FBKVOSharedController : NSObject
 
 /** A shared instance that never deallocates. */
-+ (instancetype)sharedController;
++ ( instancetype ) sharedController;
 
 /** observe an object, info pair */
-- (void)observe:(id)object info:(_FBKVOInfo *)info;
+- ( void ) observe: ( id )object info: ( _FBKVOInfo* )info;
 
 /** unobserve an object, info pair */
 - (void)unobserve:(id)object info:(_FBKVOInfo *)info;
@@ -232,44 +244,53 @@ static NSString *describe_options(NSKeyValueObservingOptions options)
 @end
 
 @implementation _FBKVOSharedController
-{
-  NSHashTable *_infos;
-  OSSpinLock _lock;
-}
-
-+ (instancetype)sharedController
-{
-  static _FBKVOSharedController *_controller = nil;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    _controller = [[_FBKVOSharedController alloc] init];
-  });
-  return _controller;
-}
-
-- (instancetype)init
-{
-  self = [super init];
-  if (nil != self) {
-    NSHashTable *infos = [NSHashTable alloc];
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
-    _infos = [infos initWithOptions:NSPointerFunctionsWeakMemory|NSPointerFunctionsObjectPointerPersonality capacity:0];
-#elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-    if ([NSHashTable respondsToSelector:@selector(weakObjectsHashTable)]) {
-      _infos = [infos initWithOptions:NSPointerFunctionsWeakMemory|NSPointerFunctionsObjectPointerPersonality capacity:0];
-    } else {
-      // silence deprecated warnings
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-      _infos = [infos initWithOptions:NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsObjectPointerPersonality capacity:0];
-#pragma clang diagnostic pop
+    {
+    NSHashTable*    _infos;
+    OSSpinLock      _lock;
     }
-    
-#endif
-    _lock = OS_SPINLOCK_INIT;
-  }
-  return self;
-}
+
++ ( instancetype ) sharedController
+    {
+    static _FBKVOSharedController* _controller = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once( &onceToken
+     , ^{
+        _controller = [ [ _FBKVOSharedController alloc ] init ];
+        } );
+
+    return _controller;
+    }
+
+- ( instancetype ) init
+    {
+    if ( self = [ super init ] )
+        {
+        NSHashTable* infos = [ NSHashTable alloc ];
+    #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
+        _infos = [ infos initWithOptions: NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality
+                                capacity: 0 ];
+    #elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+        if ( [ NSHashTable respondsToSelector: @selector( weakObjectsHashTable ) ] )
+            {
+            _infos = [ infos initWithOptions: NSPointerFunctionsWeakMemory | NSPointerFunctionsObjectPointerPersonality
+                                    capacity: 0 ];
+            }
+        else
+            {
+    // silence deprecated warnings
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            _infos = [ infos initWithOptions: NSPointerFunctionsZeroingWeakMemory | NSPointerFunctionsObjectPointerPersonality
+                                    capacity: 0 ];
+    #pragma clang diagnostic pop
+            }
+    #endif
+        _lock = OS_SPINLOCK_INIT;
+        }
+
+    return self;
+    }
 
 - (NSString *)debugDescription
 {
