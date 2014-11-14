@@ -222,7 +222,7 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
 
 @end // _FBKVOInfo class
 
-#pragma mark _FBKVOSharedController
+#pragma mark _FBKVOSharedController class
 /**
  @abstract The shared KVO controller instance.
  @discussion Acts as a receptionist, receiving and forwarding KVO notifications.
@@ -233,14 +233,16 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
 + ( instancetype ) sharedController;
 
 /** observe an object, info pair */
-- ( void ) observe: ( id )object info: ( _FBKVOInfo* )info;
+- ( void ) observe: ( id )_Object
+              info: ( _FBKVOInfo* )_Info;
 
 /** unobserve an object, info pair */
-- (void)unobserve:(id)object info:(_FBKVOInfo *)info;
+- ( void ) unobserve: ( id )_Object
+                info: ( _FBKVOInfo* )_Info;
 
 /** unobserve an object with a set of infos */
-- (void)unobserve:(id)object infos:(NSSet *)infos;
-
+- ( void ) unobserve: ( id )_Object
+               infos: ( NSSet* )_Infos;
 @end
 
 @implementation _FBKVOSharedController
@@ -293,25 +295,24 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
     }
 
 - ( NSString* ) debugDescription
-{
-  NSMutableString *s = [NSMutableString stringWithFormat:@"<%@:%p", NSStringFromClass([self class]), self];
+    {
+    NSMutableString* desc = [ NSMutableString stringWithFormat: @"<%@: %p", NSStringFromClass( [ self class ] ), self ];
   
-  // lock
-  OSSpinLockLock(&_lock);
+    // lock
+    OSSpinLockLock( &_lock );
   
-  NSMutableArray *infoDescriptions = [NSMutableArray arrayWithCapacity:_infos.count];
-  for (_FBKVOInfo *info in _infos) {
-    [infoDescriptions addObject:info.debugDescription];
-  }
+    NSMutableArray* infoDescriptions = [ NSMutableArray arrayWithCapacity: _infos.count ];
+    for ( _FBKVOInfo* info in _infos )
+        [ infoDescriptions addObject: info.debugDescription ];
   
-  [s appendFormat:@" contexts:%@", infoDescriptions];
+    [ desc appendFormat: @" contexts: %@", infoDescriptions ];
   
-  // unlock
-  OSSpinLockUnlock(&_lock);
+    // unlock
+    OSSpinLockUnlock( &_lock );
   
-  [s appendString:@">"];
-  return s;
-}
+    [ desc appendString: @">" ];
+    return desc;
+    }
 
 - ( void ) observe: ( id )_Object
               info: ( _FBKVOInfo* )_Info
@@ -401,14 +402,14 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
                 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                     [ observer performSelector: info->_action withObject: _Change withObject: _Object ];
                 #pragma clang diagnostic pop
-                else
+                else // To deal with observer's own
                     [ observer observeValueForKeyPath: _KeyPath ofObject: _Object change: _Change context: info->_context ];
                 }
             }
         }
     }
 
-@end
+@end // _FBKVOSharedController class
 
 #pragma mark FBKVOController class
 @implementation FBKVOController
