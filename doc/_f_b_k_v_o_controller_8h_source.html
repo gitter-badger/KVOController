@@ -24,6 +24,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">FBKVOController
    </div>
+   <div id="projectbrief">Simple, modern, thread-safe key-value observing for iOS and OS X.</div>
   </td>
  </tr>
  </tbody>
@@ -87,51 +88,118 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">FBKVOController.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">typedef</span> void ( ^FBKVONotificationBlock )( <span class="keywordtype">id</span> _Observer, <span class="keywordtype">id</span> _Object, NSDictionary* _Change );</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#pragma mark FBKVOController class</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="interface_f_b_k_v_o_controller.html">   25</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_f_b_k_v_o_controller.html">FBKVOController</a> : NSObject</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;+ ( instancetype ) controllerWithObserver: ( <span class="keywordtype">id</span> )_Observer;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;- ( instancetype ) initWithObserver: ( <span class="keywordtype">id</span> )_Observer retainObserved: ( BOOL )_RetainObserved;</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> **                                                                         **</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> **                               .======.                                  **</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> **                               | INRI |                                  **</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> **                               |      |                                  **</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> **                               |      |                                  **</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> **                      .========&#39;      &#39;========.                         **</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> **                      |   _      xxxx      _   |                         **</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> **                      |  /_;-.__ / _\  _.-;_\  |                         **</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> **                      |     `-._`&#39;`_/&#39;`.-&#39;     |                         **</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> **                      &#39;========.`\   /`========&#39;                         **</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> **                               | |  / |                                  **</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> **                               |/-.(  |                                  **</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> **                               |\_._\ |                                  **</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> **                               | \ \`;|                                  **</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> **                               |  &gt; |/|                                  **</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> **                               | / // |                                  **</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> **                               | |//  |                                  **</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> **                               | \(\  |                                  **</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> **                               |  ``  |                                  **</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> **                               |      |                                  **</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> **                               |      |                                  **</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> **                               |      |                                  **</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> **                               |      |                                  **</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> **                   \\    _  _\\| \//  |//_   _ \// _                     **</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> **                  ^ `^`^ ^`` `^ ^` ``^^`  `^^` `^ `^                     **</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> **                                                                         **</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> **                  Created by Facebook Inc. Originally                    **</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> **               https://github.com/facebook/KVOController                 **</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> **               Copyright (c) 2014-present, Facebook, Inc.                **</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> **                         ALL RIGHTS RESERVED.                            **</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> **                                                                         **</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> **              Forked, Changed and Republished by Tong Guo                **</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> **                 https://github.com/TongG/KVOController                  **</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> **                      Copyright (c) 2014 Tong G.                         **</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> **                         ALL RIGHTS RESERVED.                            **</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> **                                                                         **</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> ****************************************************************************/</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;- ( instancetype ) initWithObserver: ( <span class="keywordtype">id</span> )_Observer;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">typedef</span> void ( ^FBKVONotificationBlock )( <span class="keywordtype">id</span> _Observer, <span class="keywordtype">id</span> _Object, NSDictionary* _Change );</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="interface_f_b_k_v_o_controller.html#a9a41b9bcda267b904af88265fa4c3611">   52</a></span>&#160;<span class="keyword">@property</span> ( atomic, weak, readonly ) <span class="keywordtype">id</span> <a class="code" href="interface_f_b_k_v_o_controller.html#a9a41b9bcda267b904af88265fa4c3611">observer</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;- (void)observe:(<span class="keywordtype">id</span>)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;- (void)observe:(<span class="keywordtype">id</span>)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options action:(<span class="keywordtype">SEL</span>)action;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#pragma mark FBKVOController class</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="interface_f_b_k_v_o_controller.html">   56</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_f_b_k_v_o_controller.html">FBKVOController</a> : NSObject</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;+ ( instancetype ) controllerWithObserver: ( <span class="keywordtype">id</span> )_Observer;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;- ( instancetype ) initWithObserver: ( <span class="keywordtype">id</span> )_Observer retainObserved: ( BOOL )_RetainObserved;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;- (void)observe:(<span class="keywordtype">id</span>)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(<span class="keywordtype">void</span> *)context;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;- ( instancetype ) initWithObserver: ( <span class="keywordtype">id</span> )_Observer;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="interface_f_b_k_v_o_controller.html#a9a41b9bcda267b904af88265fa4c3611">   83</a></span>&#160;<span class="keyword">@property</span> ( atomic, weak, readonly ) <span class="keywordtype">id</span> <a class="code" href="interface_f_b_k_v_o_controller.html#a9a41b9bcda267b904af88265fa4c3611">observer</a>;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;- (void)observe:(<span class="keywordtype">id</span>)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;- (void)observe:(<span class="keywordtype">id</span>)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options action:(<span class="keywordtype">SEL</span>)action;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;- (void)observe:(<span class="keywordtype">id</span>)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(<span class="keywordtype">void</span> *)context;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;- (void)unobserve:(<span class="keywordtype">id</span>)object keyPath:(NSString *)keyPath;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;- ( <span class="keywordtype">void</span> ) unobserve: ( <span class="keywordtype">id</span> )_Object;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;- ( <span class="keywordtype">void</span> )<a class="code" href="interface_f_b_k_v_o_controller.html#a68986621c451e29b46b6b8eda62e188e">unobserveAll</a>;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">@end</span> <span class="comment">// FBKVOController class</span></div>
-<div class="ttc" id="interface_f_b_k_v_o_controller_html_a68986621c451e29b46b6b8eda62e188e"><div class="ttname"><a href="interface_f_b_k_v_o_controller.html#a68986621c451e29b46b6b8eda62e188e">-[FBKVOController unobserveAll]</a></div><div class="ttdeci">void unobserveAll()</div><div class="ttdef"><b>Definition:</b> FBKVOController.m:687</div></div>
-<div class="ttc" id="interface_f_b_k_v_o_controller_html_a9a41b9bcda267b904af88265fa4c3611"><div class="ttname"><a href="interface_f_b_k_v_o_controller.html#a9a41b9bcda267b904af88265fa4c3611">FBKVOController::observer</a></div><div class="ttdeci">id observer</div><div class="ttdoc">The observer notified on key-value change. Specified on initialization. </div><div class="ttdef"><b>Definition:</b> FBKVOController.h:52</div></div>
-<div class="ttc" id="interface_f_b_k_v_o_controller_html"><div class="ttname"><a href="interface_f_b_k_v_o_controller.html">FBKVOController</a></div><div class="ttdef"><b>Definition:</b> FBKVOController.h:25</div></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;- ( <span class="keywordtype">void</span> ) observe: ( <span class="keywordtype">id</span> )_Object</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;           keyPath: ( NSString* )_KeyPath</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;           options: ( NSKeyValueObservingOptions )_Options</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;             block: ( FBKVONotificationBlock )_Block;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;- ( <span class="keywordtype">void</span> ) observe: ( <span class="keywordtype">id</span> )_Object</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;           keyPath: ( NSString* )_KeyPath</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;           options: ( NSKeyValueObservingOptions )_Options</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            action: ( <span class="keywordtype">SEL</span> )_Action;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;- ( <span class="keywordtype">void</span> ) observe: ( <span class="keywordtype">id</span> )_Object</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;           keyPath: ( NSString* )_KeyPath</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;           options: ( NSKeyValueObservingOptions )_Options</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;           context: ( <span class="keywordtype">void</span>* )_Context;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;- ( <span class="keywordtype">void</span> ) observe: ( <span class="keywordtype">id</span> )_Object</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;          keyPaths: ( NSArray* )_KeyPaths</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;           options: ( NSKeyValueObservingOptions )_Options</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;             block: ( FBKVONotificationBlock )_Block;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;- ( <span class="keywordtype">void</span> ) observe: ( <span class="keywordtype">id</span> )_Object</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;          keyPaths: ( NSArray* )_KeyPaths</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;           options: ( NSKeyValueObservingOptions )_Options</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            action: ( <span class="keywordtype">SEL</span> )_Action;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;- ( <span class="keywordtype">void</span> ) observe: ( <span class="keywordtype">id</span> )_Object</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;          keyPaths: ( NSArray* )_KeyPaths</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;           options: ( NSKeyValueObservingOptions )_Options</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;           context: ( <span class="keywordtype">void</span>* )_Context;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;- ( <span class="keywordtype">void</span> ) unobserve: ( <span class="keywordtype">id</span> )_Object</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;             keyPath: ( NSString* )_KeyPath;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;- ( <span class="keywordtype">void</span> ) unobserve: ( <span class="keywordtype">id</span> )_Object;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;- ( <span class="keywordtype">void</span> ) <a class="code" href="interface_f_b_k_v_o_controller.html#a68986621c451e29b46b6b8eda62e188e">unobserveAll</a>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">@end</span> <span class="comment">// FBKVOController class</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment"> **                                                                         **</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment"> **      _________                                      _______             **</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment"> **     |___   ___|                                   / ______ \            **</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment"> **         | |     _______   _______   _______      | /      |_|           **</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment"> **         | |    ||     || ||     || ||     ||     | |    _ __            **</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment"> **         | |    ||     || ||     || ||     ||     | |   |__  \           **</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment"> **         | |    ||     || ||     || ||     ||     | \_ _ __| |  _        **</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment"> **         |_|    ||_____|| ||     || ||_____||      \________/  |_|       **</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment"> **                                           ||                            **</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment"> **                                    ||_____||                            **</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment"> **                                                                         **</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment"> ****************************************************************************/</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">///:~</span></div>
+<div class="ttc" id="interface_f_b_k_v_o_controller_html_a68986621c451e29b46b6b8eda62e188e"><div class="ttname"><a href="interface_f_b_k_v_o_controller.html#a68986621c451e29b46b6b8eda62e188e">-[FBKVOController unobserveAll]</a></div><div class="ttdeci">void unobserveAll()</div><div class="ttdef"><b>Definition:</b> FBKVOController.m:786</div></div>
+<div class="ttc" id="interface_f_b_k_v_o_controller_html_a9a41b9bcda267b904af88265fa4c3611"><div class="ttname"><a href="interface_f_b_k_v_o_controller.html#a9a41b9bcda267b904af88265fa4c3611">FBKVOController::observer</a></div><div class="ttdeci">id observer</div><div class="ttdoc">The observer notified on key-value change. Specified on initialization. </div><div class="ttdef"><b>Definition:</b> FBKVOController.h:83</div></div>
+<div class="ttc" id="interface_f_b_k_v_o_controller_html"><div class="ttname"><a href="interface_f_b_k_v_o_controller.html">FBKVOController</a></div><div class="ttdef"><b>Definition:</b> FBKVOController.h:56</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 14 2014 14:15:48 for FBKVOController by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 15 2014 04:14:50 for FBKVOController by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

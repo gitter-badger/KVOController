@@ -24,6 +24,7 @@
   <td style="padding-left: 0.5em;">
    <div id="projectname">FBKVOController
    </div>
+   <div id="projectbrief">Simple, modern, thread-safe key-value observing for iOS and OS X.</div>
   </td>
  </tr>
  </tbody>
@@ -101,12 +102,12 @@ Inheritance diagram for _FBKVOSharedController:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:a3c86b19c63b309078c372d3ba9c82423"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface___f_b_k_v_o_shared_controller.html#a3c86b19c63b309078c372d3ba9c82423">observe:info:</a></td></tr>
-<tr class="separator:a3c86b19c63b309078c372d3ba9c82423"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c1ecb634733652d00e1d0171eea4856"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface___f_b_k_v_o_shared_controller.html#a8c1ecb634733652d00e1d0171eea4856">unobserve:info:</a></td></tr>
-<tr class="separator:a8c1ecb634733652d00e1d0171eea4856"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a672c0e721f004e5f34ea8e497d9f4841"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface___f_b_k_v_o_shared_controller.html#a672c0e721f004e5f34ea8e497d9f4841">unobserve:infos:</a></td></tr>
-<tr class="separator:a672c0e721f004e5f34ea8e497d9f4841"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3366ca557180fa6dad444c775649bff6"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface___f_b_k_v_o_shared_controller.html#a3366ca557180fa6dad444c775649bff6">observe:info:</a></td></tr>
+<tr class="separator:a3366ca557180fa6dad444c775649bff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86296472b759a5957e40bfe799e8073e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface___f_b_k_v_o_shared_controller.html#a86296472b759a5957e40bfe799e8073e">unobserve:info:</a></td></tr>
+<tr class="separator:a86296472b759a5957e40bfe799e8073e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ddda4d74732273dfe84a8edbbccfd0"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface___f_b_k_v_o_shared_controller.html#ac4ddda4d74732273dfe84a8edbbccfd0">unobserve:infos:</a></td></tr>
+<tr class="separator:ac4ddda4d74732273dfe84a8edbbccfd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Class Methods</h2></td></tr>
@@ -116,7 +117,7 @@ Class Methods</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The shared KVO controller instance.  Acts as a receptionist, receiving and forwarding KVO notifications. </p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a class="anchor" id="a3c86b19c63b309078c372d3ba9c82423"></a>
+<a class="anchor" id="a3366ca557180fa6dad444c775649bff6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -124,13 +125,13 @@ Class Methods</h2></td></tr>
           <td class="memname">- (void) observe: </td>
           <td></td>
           <td class="paramtype">(id)&#160;</td>
-          <td class="paramname"><em>object</em></td>
+          <td class="paramname"><em>_Object</em></td>
         </tr>
         <tr>
           <td class="paramkey">info:</td>
           <td></td>
           <td class="paramtype">(<a class="el" href="interface___f_b_k_v_o_info.html">_FBKVOInfo</a>*)&#160;</td>
-          <td class="paramname"><em>info</em>&#160;</td>
+          <td class="paramname"><em>_Info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -159,7 +160,7 @@ Class Methods</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8c1ecb634733652d00e1d0171eea4856"></a>
+<a class="anchor" id="a86296472b759a5957e40bfe799e8073e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -167,13 +168,13 @@ Class Methods</h2></td></tr>
           <td class="memname">- (void) unobserve: </td>
           <td></td>
           <td class="paramtype">(id)&#160;</td>
-          <td class="paramname"><em>object</em></td>
+          <td class="paramname"><em>_Object</em></td>
         </tr>
         <tr>
           <td class="paramkey">info:</td>
           <td></td>
-          <td class="paramtype">(<a class="el" href="interface___f_b_k_v_o_info.html">_FBKVOInfo</a> *)&#160;</td>
-          <td class="paramname"><em>info</em>&#160;</td>
+          <td class="paramtype">(<a class="el" href="interface___f_b_k_v_o_info.html">_FBKVOInfo</a>*)&#160;</td>
+          <td class="paramname"><em>_Info</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -186,7 +187,7 @@ Class Methods</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a672c0e721f004e5f34ea8e497d9f4841"></a>
+<a class="anchor" id="ac4ddda4d74732273dfe84a8edbbccfd0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -194,13 +195,13 @@ Class Methods</h2></td></tr>
           <td class="memname">- (void) unobserve: </td>
           <td></td>
           <td class="paramtype">(id)&#160;</td>
-          <td class="paramname"><em>object</em></td>
+          <td class="paramname"><em>_Object</em></td>
         </tr>
         <tr>
           <td class="paramkey">infos:</td>
           <td></td>
-          <td class="paramtype">(NSSet *)&#160;</td>
-          <td class="paramname"><em>infos</em>&#160;</td>
+          <td class="paramtype">(NSSet*)&#160;</td>
+          <td class="paramname"><em>_Infos</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -219,7 +220,7 @@ Class Methods</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 14 2014 14:15:48 for FBKVOController by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 15 2014 04:14:50 for FBKVOController by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

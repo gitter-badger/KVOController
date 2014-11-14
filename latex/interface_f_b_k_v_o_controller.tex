@@ -18,19 +18,19 @@ Inheritance diagram for F\+B\+K\+V\+O\+Controller\+:\begin{figure}[H]
 \item 
 (instancetype) -\/ \hyperlink{interface_f_b_k_v_o_controller_a0614e1c3de86e47a152cdf23aad5f85e}{init\+With\+Observer\+:}
 \item 
-(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a5e947c609b39d2e05dbf9e9e0639d1d4}{observe\+:key\+Path\+:options\+:block\+:}
+(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a5dacda106c22565154f63248064410ed}{observe\+:key\+Path\+:options\+:block\+:}
 \item 
-(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a4558dee863033be98d3d59a16621edee}{observe\+:key\+Path\+:options\+:action\+:}
+(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_accddd064c9d3a077150939d7196e3cc5}{observe\+:key\+Path\+:options\+:action\+:}
 \item 
-(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a09c725ec7fa8e649b3a1c2e5ecd004ae}{observe\+:key\+Path\+:options\+:context\+:}
+(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a0b6112256f04e33bd74d758b98c2b870}{observe\+:key\+Path\+:options\+:context\+:}
 \item 
-(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a78b2d28e3b4bc208053a8d53c596f394}{observe\+:key\+Paths\+:options\+:block\+:}
+(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a548b9e1341e1817f275671bcd07b36a8}{observe\+:key\+Paths\+:options\+:block\+:}
 \item 
-(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a95f73613e406f372bf34906f56e89f4d}{observe\+:key\+Paths\+:options\+:action\+:}
+(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_af0fc7f0da260588c7a639efb0753a96d}{observe\+:key\+Paths\+:options\+:action\+:}
 \item 
-(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_a322a647907eebd55c01d185622e7ad39}{observe\+:key\+Paths\+:options\+:context\+:}
+(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_ad39efd9ce6078db4cd24a2338bb96472}{observe\+:key\+Paths\+:options\+:context\+:}
 \item 
-(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_aebaeb37fe373939c8254984bdf3c518a}{unobserve\+:key\+Path\+:}
+(void) -\/ \hyperlink{interface_f_b_k_v_o_controller_ac7362b1d5f39932948e4de66aba5cca9}{unobserve\+:key\+Path\+:}
 \item 
 (void) -\/ \hyperlink{interface_f_b_k_v_o_controller_ae614819487de82c3a513610031834a6d}{unobserve\+:}
 \item 
@@ -101,16 +101,16 @@ The designated initializer.
 \begin{DoxyReturn}{Returns}
 The initialized K\+V\+O controller instance.  Use retain\+Observed = N\+O when a strong reference between controller and observee would create a retain loop. When not retaining observees, special care must be taken to remove observation info prior to observee dealloc. 
 \end{DoxyReturn}
-\hypertarget{interface_f_b_k_v_o_controller_a4558dee863033be98d3d59a16621edee}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Path\+:options\+:action\+:@{observe\+:key\+Path\+:options\+:action\+:}}
+\hypertarget{interface_f_b_k_v_o_controller_accddd064c9d3a077150939d7196e3cc5}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Path\+:options\+:action\+:@{observe\+:key\+Path\+:options\+:action\+:}}
 \index{observe\+:key\+Path\+:options\+:action\+:@{observe\+:key\+Path\+:options\+:action\+:}!F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}}
 \subsubsection[{observe\+:key\+Path\+:options\+:action\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) observe\+: 
 \begin{DoxyParamCaption}
-\item[{(id)}]{object}
-\item[{keyPath:(N\+S\+String $\ast$)}]{key\+Path}
-\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{options}
-\item[{action:(S\+E\+L)}]{action}
+\item[{(id)}]{\+\_\+\+Object}
+\item[{keyPath:(N\+S\+String$\ast$)}]{\+\_\+\+Key\+Path}
+\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{\+\_\+\+Options}
+\item[{action:(S\+E\+L)}]{\+\_\+\+Action}
 \end{DoxyParamCaption}
-}}\label{interface_f_b_k_v_o_controller_a4558dee863033be98d3d59a16621edee}
+}}\label{interface_f_b_k_v_o_controller_accddd064c9d3a077150939d7196e3cc5}
 Registers observer for key-\/value change notification. 
 \begin{DoxyParams}{Parameters}
 {\em object} & The object to observe. \\
@@ -122,16 +122,16 @@ Registers observer for key-\/value change notification.
 {\em action} & The observer selector called on key-\/value change.  On key-\/value change, the observer's action selector is called. The selector provided should take the form of -\/property\+Did\+Change, -\/property\+Did\+Change\+: or -\/property\+Did\+Change\+:object\+:, where optional parameters delivered will be K\+V\+O change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation. \\
 \hline
 \end{DoxyParams}
-\hypertarget{interface_f_b_k_v_o_controller_a5e947c609b39d2e05dbf9e9e0639d1d4}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Path\+:options\+:block\+:@{observe\+:key\+Path\+:options\+:block\+:}}
+\hypertarget{interface_f_b_k_v_o_controller_a5dacda106c22565154f63248064410ed}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Path\+:options\+:block\+:@{observe\+:key\+Path\+:options\+:block\+:}}
 \index{observe\+:key\+Path\+:options\+:block\+:@{observe\+:key\+Path\+:options\+:block\+:}!F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}}
 \subsubsection[{observe\+:key\+Path\+:options\+:block\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) observe\+: 
 \begin{DoxyParamCaption}
-\item[{(id)}]{object}
-\item[{keyPath:(N\+S\+String $\ast$)}]{key\+Path}
-\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{options}
-\item[{block:(F\+B\+K\+V\+O\+Notification\+Block)}]{block}
+\item[{(id)}]{\+\_\+\+Object}
+\item[{keyPath:(N\+S\+String$\ast$)}]{\+\_\+\+Key\+Path}
+\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{\+\_\+\+Options}
+\item[{block:(F\+B\+K\+V\+O\+Notification\+Block)}]{\+\_\+\+Block}
 \end{DoxyParamCaption}
-}}\label{interface_f_b_k_v_o_controller_a5e947c609b39d2e05dbf9e9e0639d1d4}
+}}\label{interface_f_b_k_v_o_controller_a5dacda106c22565154f63248064410ed}
 Registers observer for key-\/value change notification. 
 \begin{DoxyParams}{Parameters}
 {\em object} & The object to observe. \\
@@ -143,16 +143,16 @@ Registers observer for key-\/value change notification.
 {\em block} & The block to execute on notification.  On key-\/value change, the specified block is called. Inorder to avoid retain loops, the block must avoid referencing the K\+V\+O controller or an owner thereof. Observing an already observed object key path or nil results in no operation. \\
 \hline
 \end{DoxyParams}
-\hypertarget{interface_f_b_k_v_o_controller_a09c725ec7fa8e649b3a1c2e5ecd004ae}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Path\+:options\+:context\+:@{observe\+:key\+Path\+:options\+:context\+:}}
+\hypertarget{interface_f_b_k_v_o_controller_a0b6112256f04e33bd74d758b98c2b870}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Path\+:options\+:context\+:@{observe\+:key\+Path\+:options\+:context\+:}}
 \index{observe\+:key\+Path\+:options\+:context\+:@{observe\+:key\+Path\+:options\+:context\+:}!F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}}
 \subsubsection[{observe\+:key\+Path\+:options\+:context\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) observe\+: 
 \begin{DoxyParamCaption}
-\item[{(id)}]{object}
-\item[{keyPath:(N\+S\+String $\ast$)}]{key\+Path}
-\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{options}
-\item[{context:(void $\ast$)}]{context}
+\item[{(id)}]{\+\_\+\+Object}
+\item[{keyPath:(N\+S\+String$\ast$)}]{\+\_\+\+Key\+Path}
+\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{\+\_\+\+Options}
+\item[{context:(void$\ast$)}]{\+\_\+\+Context}
 \end{DoxyParamCaption}
-}}\label{interface_f_b_k_v_o_controller_a09c725ec7fa8e649b3a1c2e5ecd004ae}
+}}\label{interface_f_b_k_v_o_controller_a0b6112256f04e33bd74d758b98c2b870}
 Registers observer for key-\/value change notification. 
 \begin{DoxyParams}{Parameters}
 {\em object} & The object to observe. \\
@@ -164,16 +164,16 @@ Registers observer for key-\/value change notification.
 {\em context} & The context specified.  On key-\/value change, the observer's -\/observe\+Value\+For\+Key\+Path\+:of\+Object\+:change\+:context\+: method is called. Observing an already observed object key path or nil results in no operation. \\
 \hline
 \end{DoxyParams}
-\hypertarget{interface_f_b_k_v_o_controller_a95f73613e406f372bf34906f56e89f4d}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Paths\+:options\+:action\+:@{observe\+:key\+Paths\+:options\+:action\+:}}
+\hypertarget{interface_f_b_k_v_o_controller_af0fc7f0da260588c7a639efb0753a96d}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Paths\+:options\+:action\+:@{observe\+:key\+Paths\+:options\+:action\+:}}
 \index{observe\+:key\+Paths\+:options\+:action\+:@{observe\+:key\+Paths\+:options\+:action\+:}!F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}}
 \subsubsection[{observe\+:key\+Paths\+:options\+:action\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) observe\+: 
 \begin{DoxyParamCaption}
-\item[{(id)}]{object}
-\item[{keyPaths:(N\+S\+Array $\ast$)}]{key\+Paths}
-\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{options}
-\item[{action:(S\+E\+L)}]{action}
+\item[{(id)}]{\+\_\+\+Object}
+\item[{keyPaths:(N\+S\+Array$\ast$)}]{\+\_\+\+Key\+Paths}
+\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{\+\_\+\+Options}
+\item[{action:(S\+E\+L)}]{\+\_\+\+Action}
 \end{DoxyParamCaption}
-}}\label{interface_f_b_k_v_o_controller_a95f73613e406f372bf34906f56e89f4d}
+}}\label{interface_f_b_k_v_o_controller_af0fc7f0da260588c7a639efb0753a96d}
 Registers observer for key-\/value change notification. 
 \begin{DoxyParams}{Parameters}
 {\em object} & The object to observe. \\
@@ -185,16 +185,16 @@ Registers observer for key-\/value change notification.
 {\em action} & The observer selector called on key-\/value change.  On key-\/value change, the observer's action selector is called. The selector provided should take the form of -\/property\+Did\+Change, -\/property\+Did\+Change\+: or -\/property\+Did\+Change\+:object\+:, where optional parameters delivered will be K\+V\+O change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation. \\
 \hline
 \end{DoxyParams}
-\hypertarget{interface_f_b_k_v_o_controller_a78b2d28e3b4bc208053a8d53c596f394}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Paths\+:options\+:block\+:@{observe\+:key\+Paths\+:options\+:block\+:}}
+\hypertarget{interface_f_b_k_v_o_controller_a548b9e1341e1817f275671bcd07b36a8}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Paths\+:options\+:block\+:@{observe\+:key\+Paths\+:options\+:block\+:}}
 \index{observe\+:key\+Paths\+:options\+:block\+:@{observe\+:key\+Paths\+:options\+:block\+:}!F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}}
 \subsubsection[{observe\+:key\+Paths\+:options\+:block\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) observe\+: 
 \begin{DoxyParamCaption}
-\item[{(id)}]{object}
-\item[{keyPaths:(N\+S\+Array $\ast$)}]{key\+Paths}
-\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{options}
-\item[{block:(F\+B\+K\+V\+O\+Notification\+Block)}]{block}
+\item[{(id)}]{\+\_\+\+Object}
+\item[{keyPaths:(N\+S\+Array$\ast$)}]{\+\_\+\+Key\+Paths}
+\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{\+\_\+\+Options}
+\item[{block:(F\+B\+K\+V\+O\+Notification\+Block)}]{\+\_\+\+Block}
 \end{DoxyParamCaption}
-}}\label{interface_f_b_k_v_o_controller_a78b2d28e3b4bc208053a8d53c596f394}
+}}\label{interface_f_b_k_v_o_controller_a548b9e1341e1817f275671bcd07b36a8}
 Registers observer for key-\/value change notification. 
 \begin{DoxyParams}{Parameters}
 {\em object} & The object to observe. \\
@@ -206,16 +206,16 @@ Registers observer for key-\/value change notification.
 {\em block} & The block to execute on notification.  On key-\/value change, the specified block is called. Inorder to avoid retain loops, the block must avoid referencing the K\+V\+O controller or an owner thereof. Observing an already observed object key path or nil results in no operation. \\
 \hline
 \end{DoxyParams}
-\hypertarget{interface_f_b_k_v_o_controller_a322a647907eebd55c01d185622e7ad39}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Paths\+:options\+:context\+:@{observe\+:key\+Paths\+:options\+:context\+:}}
+\hypertarget{interface_f_b_k_v_o_controller_ad39efd9ce6078db4cd24a2338bb96472}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!observe\+:key\+Paths\+:options\+:context\+:@{observe\+:key\+Paths\+:options\+:context\+:}}
 \index{observe\+:key\+Paths\+:options\+:context\+:@{observe\+:key\+Paths\+:options\+:context\+:}!F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}}
 \subsubsection[{observe\+:key\+Paths\+:options\+:context\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) observe\+: 
 \begin{DoxyParamCaption}
-\item[{(id)}]{object}
-\item[{keyPaths:(N\+S\+Array $\ast$)}]{key\+Paths}
-\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{options}
-\item[{context:(void $\ast$)}]{context}
+\item[{(id)}]{\+\_\+\+Object}
+\item[{keyPaths:(N\+S\+Array$\ast$)}]{\+\_\+\+Key\+Paths}
+\item[{options:(N\+S\+Key\+Value\+Observing\+Options)}]{\+\_\+\+Options}
+\item[{context:(void$\ast$)}]{\+\_\+\+Context}
 \end{DoxyParamCaption}
-}}\label{interface_f_b_k_v_o_controller_a322a647907eebd55c01d185622e7ad39}
+}}\label{interface_f_b_k_v_o_controller_ad39efd9ce6078db4cd24a2338bb96472}
 Registers observer for key-\/value change notification. 
 \begin{DoxyParams}{Parameters}
 {\em object} & The object to observe. \\
@@ -239,14 +239,14 @@ Unobserve all object key paths.
 {\em object} & The object to unobserve.  If not observing object, or unobserving nil, this method results in no operation. \\
 \hline
 \end{DoxyParams}
-\hypertarget{interface_f_b_k_v_o_controller_aebaeb37fe373939c8254984bdf3c518a}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!unobserve\+:key\+Path\+:@{unobserve\+:key\+Path\+:}}
+\hypertarget{interface_f_b_k_v_o_controller_ac7362b1d5f39932948e4de66aba5cca9}{\index{F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}!unobserve\+:key\+Path\+:@{unobserve\+:key\+Path\+:}}
 \index{unobserve\+:key\+Path\+:@{unobserve\+:key\+Path\+:}!F\+B\+K\+V\+O\+Controller@{F\+B\+K\+V\+O\+Controller}}
 \subsubsection[{unobserve\+:key\+Path\+:}]{\setlength{\rightskip}{0pt plus 5cm}-\/ (void) {\bf unobserve\+:} 
 \begin{DoxyParamCaption}
-\item[{(id)}]{object}
-\item[{keyPath:(N\+S\+String $\ast$)}]{key\+Path}
+\item[{(id)}]{\+\_\+\+Object}
+\item[{keyPath:(N\+S\+String$\ast$)}]{\+\_\+\+Key\+Path}
 \end{DoxyParamCaption}
-}}\label{interface_f_b_k_v_o_controller_aebaeb37fe373939c8254984bdf3c518a}
+}}\label{interface_f_b_k_v_o_controller_ac7362b1d5f39932948e4de66aba5cca9}
 Unobserve object key path. 
 \begin{DoxyParams}{Parameters}
 {\em object} & The object to unobserve. \\
