@@ -1,8 +1,8 @@
 var NAVTREE =
 [
   [ "FBKVOController", "index.html", [
-    [ "Contributing", "md__c_o_n_t_r_i_b_u_t_i_n_g.html", null ],
-    [ "[KVOController](https://github.com/facebook/KVOController)", "md__r_e_a_d_m_e.html", null ],
+    [ "Contributing", "d6/dcd/md__c_o_n_t_r_i_b_u_t_i_n_g.html", null ],
+    [ "[KVOController](https://github.com/facebook/KVOController)", "d3/dcc/md__r_e_a_d_m_e.html", null ],
     [ "Classes", null, [
       [ "Class List", "annotated.html", "annotated" ],
       [ "Class Index", "classes.html", null ],
@@ -21,7 +21,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_f_b_k_v_o_controller_8h_source.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
