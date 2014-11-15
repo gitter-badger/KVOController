@@ -427,7 +427,7 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
                 {
                 // dispatch custom block or action, fall back to default action
                 if ( info->_block )
-                    info->_block( observer, _Object, _Change );
+                    info->_block( _KeyPath, observer, _Object, _Change );
                 else if ( info->_action )
                     #pragma clang diagnostic push
                     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
