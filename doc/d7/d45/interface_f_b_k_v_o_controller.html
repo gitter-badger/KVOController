@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">FBKVOController
-   &#160;<span id="projectnumber">1.1</span>
+   &#160;<span id="projectnumber">v1.2</span>
    </div>
    <div id="projectbrief">Simple, modern, thread-safe key-value observing for iOS and OS X.</div>
   </td>
@@ -285,10 +285,12 @@ id&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../
     <tr><td class="paramname">object</td><td>The object to observe. </td></tr>
     <tr><td class="paramname">keyPath</td><td>The key path to observe. </td></tr>
     <tr><td class="paramname">options</td><td>The NSKeyValueObservingOptions to use for observation. </td></tr>
-    <tr><td class="paramname">action</td><td>The observer selector called on key-value change.  On key-value change, the observer's action selector is called. The selector provided should take the form of -propertyDidChange, -propertyDidChange: or -propertyDidChange:object:, where optional parameters delivered will be KVO change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation. </td></tr>
+    <tr><td class="paramname">action</td><td>The observer selector called on key-value change.  On key-value change, the observer's action selector is called. The <em>action</em> should have the following signature: </td></tr>
   </table>
   </dd>
 </dl>
+<p><code>- ( void ) observedPropertiesChange: ( NSDictionary* )change keyPath: ( NSString* )keyPath object: ( id )object </code></p>
+<p>Observing nil or observing an already observed object's key path results in no operation. </p>
 
 </div>
 </div>
@@ -426,10 +428,12 @@ id&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../
     <tr><td class="paramname">object</td><td>The object to observe. </td></tr>
     <tr><td class="paramname">keyPaths</td><td>The key paths to observe. </td></tr>
     <tr><td class="paramname">options</td><td>The NSKeyValueObservingOptions to use for observation. </td></tr>
-    <tr><td class="paramname">action</td><td>The observer selector called on key-value change.  On key-value change, the observer's action selector is called. The selector provided should take the form of -propertyDidChange, -propertyDidChange: or -propertyDidChange:object:, where optional parameters delivered will be KVO change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation. </td></tr>
+    <tr><td class="paramname">action</td><td>The observer selector called on key-value change.  On key-value change, the observer's action selector is called. The <em>action</em> should have the following signature: </td></tr>
   </table>
   </dd>
 </dl>
+<p><code>- ( void ) observedPropertiesChange: ( NSDictionary* )change keyPath: ( NSString* )keyPath object: ( id )object </code></p>
+<p>Observing nil or observing an already observed object's key path results in no operation. </p>
 
 </div>
 </div>
@@ -608,7 +612,7 @@ id&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="../../d7/d45/interface_f_b_k_v_o_controller.html">FBKVOController</a></li>
-    <li class="footer">Generated on Sun Nov 16 2014 00:01:22 for FBKVOController by
+    <li class="footer">Generated on Sun Nov 16 2014 02:37:26 for FBKVOController by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.8 </li>
   </ul>
