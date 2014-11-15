@@ -429,10 +429,16 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
                 if ( info->_block )
                     info->_block( _KeyPath, observer, _Object, _Change );
                 else if ( info->_action )
-                    #pragma clang diagnostic push
-                    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                    [ observer performSelector: info->_action withObject: _Change withObject: _Object ];
-                    #pragma clang diagnostic pop
+                    {
+                    NSInvocation* invocation = [ NSInvocation invocationWithMethodSignature: [ observer methodSignatureForSelector: info->_action ] ];
+                    [ invocation setSelector: info->_action ];
+
+                    [ invocation setArgument: &_Change atIndex: 2 ];
+                    [ invocation setArgument: &_KeyPath atIndex: 3 ];
+                    [ invocation setArgument: &_Object atIndex: 4 ];
+
+                    [ invocation invokeWithTarget: observer ];
+                    }
                 else // To deal with observer's own
                     [ observer observeValueForKeyPath: _KeyPath ofObject: _Object change: _Change context: info->_context ];
                 }

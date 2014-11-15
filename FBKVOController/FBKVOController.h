@@ -101,7 +101,12 @@ typedef void ( ^FBKVONotificationBlock )( NSString* _KeyPath, id _Observer, id _
  @param keyPath The key path to observe.
  @param options The NSKeyValueObservingOptions to use for observation.
  @param action The observer selector called on key-value change.
- @discussion On key-value change, the observer's action selector is called. The selector provided should take the form of -propertyDidChange, -propertyDidChange: or -propertyDidChange:object:, where optional parameters delivered will be KVO change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation.
+ @discussion On key-value change, the observer's action selector is called. The <i>action</i> should have the following signature: 
+    <p><code>- ( void ) observedPropertiesChange: ( NSDictionary* )change
+                                         keyPath: ( NSString* )keyPath
+                                          object: ( id )object
+    </code></p>
+    <p>Observing nil or observing an already observed object's key path results in no operation. </p>
  */
 - ( void ) observe: ( id )_Object
            keyPath: ( NSString* )_KeyPath
@@ -138,7 +143,12 @@ typedef void ( ^FBKVONotificationBlock )( NSString* _KeyPath, id _Observer, id _
  @param keyPaths The key paths to observe.
  @param options The NSKeyValueObservingOptions to use for observation.
  @param action The observer selector called on key-value change.
- @discussion On key-value change, the observer's action selector is called. The selector provided should take the form of -propertyDidChange, -propertyDidChange: or -propertyDidChange:object:, where optional parameters delivered will be KVO change dictionary and object observed. Observing nil or observing an already observed object's key path results in no operation.
+ @discussion On key-value change, the observer's action selector is called. The <i>action</i> should have the following signature: 
+    <p><code>- ( void ) observedPropertiesChange: ( NSDictionary* )change
+                                         keyPath: ( NSString* )keyPath
+                                          object: ( id )object
+    </code></p>
+    <p>Observing nil or observing an already observed object's key path results in no operation. </p>
  */
 - ( void ) observe: ( id )_Object
           keyPaths: ( NSArray* )_KeyPaths
