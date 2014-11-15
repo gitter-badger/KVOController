@@ -11,11 +11,12 @@
 
 /**
  @abstract Block called on key-value change notification.
+ @pragm keyPath The key path, relative to object, to the value that has changed.
  @param observer The observer of the change.
  @param object The object changed.
  @param change The change dictionary.
  */
-typedef void (^FBKVONotificationBlock)(id observer, id object, NSDictionary *change);
+typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object, NSDictionary *change);
 
 
 /**
