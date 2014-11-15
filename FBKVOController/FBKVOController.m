@@ -430,12 +430,11 @@ static NSString* describe_options( NSKeyValueObservingOptions options )
                     info->_block( _KeyPath, observer, _Object, _Change );
                 else if ( info->_action )
                     {
-                    NSString* observedKeyPath = [ _KeyPath copy ];
                     NSInvocation* invocation = [ NSInvocation invocationWithMethodSignature: [ observer methodSignatureForSelector: info->_action ] ];
                     [ invocation setSelector: info->_action ];
 
                     [ invocation setArgument: &_Change atIndex: 2 ];
-                    [ invocation setArgument: &observedKeyPath atIndex: 3 ];
+                    [ invocation setArgument: &_KeyPath atIndex: 3 ];
                     [ invocation setArgument: &_Object atIndex: 4 ];
 
                     [ invocation invokeWithTarget: observer ];
