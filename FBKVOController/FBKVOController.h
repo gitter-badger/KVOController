@@ -1,11 +1,42 @@
-/**
-  Copyright (c) 2014-present, Facebook, Inc.
-  All rights reserved.
-
-  This source code is licensed under the BSD-style license found in the
-  LICENSE file in the root directory of this source tree. An additional grant
-  of patent rights can be found in the PATENTS file in the same directory.
- */
+///:
+/*****************************************************************************
+ **                                                                         **
+ **                               .======.                                  **
+ **                               | INRI |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                      .========'      '========.                         **
+ **                      |   _      xxxx      _   |                         **
+ **                      |  /_;-.__ / _\  _.-;_\  |                         **
+ **                      |     `-._`'`_/'`.-'     |                         **
+ **                      '========.`\   /`========'                         **
+ **                               | |  / |                                  **
+ **                               |/-.(  |                                  **
+ **                               |\_._\ |                                  **
+ **                               | \ \`;|                                  **
+ **                               |  > |/|                                  **
+ **                               | / // |                                  **
+ **                               | |//  |                                  **
+ **                               | \(\  |                                  **
+ **                               |  ``  |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                               |      |                                  **
+ **                   \\    _  _\\| \//  |//_   _ \// _                     **
+ **                  ^ `^`^ ^`` `^ ^` ``^^`  `^^` `^ `^                     **
+ **                                                                         **
+ **                  Created by Facebook Inc. Originally                    **
+ **               https://github.com/facebook/KVOController                 **
+ **               Copyright (c) 2014-present, Facebook, Inc.                **
+ **                         ALL RIGHTS RESERVED.                            **
+ **                                                                         **
+ **              Forked, Changed and Republished by Tong Guo                **
+ **                 https://github.com/TongG/KVOController                  **
+ **                      Copyright (c) 2014 Tong G.                         **
+ **                         ALL RIGHTS RESERVED.                            **
+ **                                                                         **
+ ****************************************************************************/
 
 #import <Foundation/Foundation.h>
 
@@ -16,9 +47,9 @@
  @param object The object changed.
  @param change The change dictionary.
  */
-typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object, NSDictionary *change);
+typedef void ( ^FBKVONotificationBlock )( NSString* _KeyPath, id _Observer, id _Object, NSDictionary* _Change );
 
-
+#pragma mark FBKVOController class
 /**
  @abstract FBKVOController makes Key-Value Observing simpler and safer.
  @discussion FBKVOController adds support for handling key-value changes with blocks and custom actions, as well as the NSKeyValueObserving callback. Notification will never message a deallocated observer. Observer removal never throws exceptions, and observers are removed implicitly on controller deallocation. FBKVOController is also thread safe. When used in a concurrent environment, it protects observers from possible resurrection and avoids ensuing crash. By default, the controller maintains a strong reference to objects observed.
@@ -30,7 +61,7 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
  @param observer The object notified on key-value change.
  @return The initialized KVO controller instance.
  */
-+ (instancetype)controllerWithObserver:(id)observer;
++ ( instancetype ) controllerWithObserver: ( id )_Observer;
 
 /**
  @abstract The designated initializer.
@@ -39,18 +70,18 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
  @return The initialized KVO controller instance.
  @discussion Use retainObserved = NO when a strong reference between controller and observee would create a retain loop. When not retaining observees, special care must be taken to remove observation info prior to observee dealloc.
  */
-- (instancetype)initWithObserver:(id)observer retainObserved:(BOOL)retainObserved;
+- ( instancetype ) initWithObserver: ( id )_Observer retainObserved: ( BOOL )_RetainObserved;
 
 /**
  @abstract Convenience initializer.
- @param observer The object notified on key-value change. The specified observer must support weak references.
+ @param bserver The object notified on key-value change. The specified observer must support weak references.
  @return The initialized KVO controller instance.
  @discussion By default, KVO controller retains objects observed.
  */
-- (instancetype)initWithObserver:(id)observer;
+- ( instancetype ) initWithObserver: ( id )_Observer;
 
 /// The observer notified on key-value change. Specified on initialization.
-@property (atomic, weak, readonly) id observer;
+@property ( atomic, weak, readonly ) id observer;
 
 /**
  @abstract Registers observer for key-value change notification.
@@ -60,8 +91,10 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
  @param block The block to execute on notification.
  @discussion On key-value change, the specified block is called. Inorder to avoid retain loops, the block must avoid referencing the KVO controller or an owner thereof. Observing an already observed object key path or nil results in no operation.
  */
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block;
-
+- ( void ) observe: ( id )_Object
+           keyPath: ( NSString* )_KeyPath
+           options: ( NSKeyValueObservingOptions )_Options
+             block: ( FBKVONotificationBlock )_Block;
 /**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
@@ -75,8 +108,10 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
     </code></p>
     <p>Observing nil or observing an already observed object's key path results in no operation. </p>
  */
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options action:(SEL)action;
-
+- ( void ) observe: ( id )_Object
+           keyPath: ( NSString* )_KeyPath
+           options: ( NSKeyValueObservingOptions )_Options
+            action: ( SEL )_Action;
 /**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
@@ -85,8 +120,10 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
  @param context The context specified.
  @discussion On key-value change, the observer's -observeValueForKeyPath:ofObject:change:context: method is called. Observing an already observed object key path or nil results in no operation.
  */
-- (void)observe:(id)object keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
-
+- ( void ) observe: ( id )_Object
+           keyPath: ( NSString* )_KeyPath
+           options: ( NSKeyValueObservingOptions )_Options
+           context: ( void* )_Context;
 
 /**
  @abstract Registers observer for key-value change notification.
@@ -96,8 +133,10 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
  @param block The block to execute on notification.
  @discussion On key-value change, the specified block is called. Inorder to avoid retain loops, the block must avoid referencing the KVO controller or an owner thereof. Observing an already observed object key path or nil results in no operation.
  */
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options block:(FBKVONotificationBlock)block;
-
+- ( void ) observe: ( id )_Object
+          keyPaths: ( NSArray* )_KeyPaths
+           options: ( NSKeyValueObservingOptions )_Options
+             block: ( FBKVONotificationBlock )_Block;
 /**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
@@ -111,8 +150,10 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
     </code></p>
     <p>Observing nil or observing an already observed object's key path results in no operation. </p>
  */
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options action:(SEL)action;
-
+- ( void ) observe: ( id )_Object
+          keyPaths: ( NSArray* )_KeyPaths
+           options: ( NSKeyValueObservingOptions )_Options
+            action: ( SEL )_Action;
 /**
  @abstract Registers observer for key-value change notification.
  @param object The object to observe.
@@ -121,8 +162,10 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
  @param context The context specified.
  @discussion On key-value change, the observer's -observeValueForKeyPath:ofObject:change:context: method is called. Observing an already observed object key path or nil results in no operation.
  */
-- (void)observe:(id)object keyPaths:(NSArray *)keyPaths options:(NSKeyValueObservingOptions)options context:(void *)context;
-
+- ( void ) observe: ( id )_Object
+          keyPaths: ( NSArray* )_KeyPaths
+           options: ( NSKeyValueObservingOptions )_Options
+           context: ( void* )_Context;
 
 /**
  @abstract Unobserve object key path.
@@ -130,19 +173,37 @@ typedef void (^FBKVONotificationBlock)(NSString* keyPath, id observer, id object
  @param keyPath The key path to observe.
  @discussion If not observing object key path, or unobserving nil, this method results in no operation.
  */
-- (void)unobserve:(id)object keyPath:(NSString *)keyPath;
+- ( void ) unobserve: ( id )_Object
+             keyPath: ( NSString* )_KeyPath;
 
 /**
  @abstract Unobserve all object key paths.
  @param object The object to unobserve.
  @discussion If not observing object, or unobserving nil, this method results in no operation.
  */
-- (void)unobserve:(id)object;
+- ( void ) unobserve: ( id )_Object;
 
 /**
  @abstract Unobserve all objects.
  @discussion If not observing any objects, this method results in no operation.
  */
-- (void)unobserveAll;
+- ( void ) unobserveAll;
 
-@end
+@end // FBKVOController class
+
+//////////////////////////////////////////////////////////////////////////////
+
+/*****************************************************************************
+ **                                                                         **
+ **      _________                                      _______             **
+ **     |___   ___|                                   / ______ \            **
+ **         | |     _______   _______   _______      | /      |_|           **
+ **         | |    ||     || ||     || ||     ||     | |    _ __            **
+ **         | |    ||     || ||     || ||     ||     | |   |__  \           **
+ **         | |    ||     || ||     || ||     ||     | \_ _ __| |  _        **
+ **         |_|    ||_____|| ||     || ||_____||      \________/  |_|       **
+ **                                           ||                            **
+ **                                    ||_____||                            **
+ **                                                                         **
+ ****************************************************************************/
+///:~
