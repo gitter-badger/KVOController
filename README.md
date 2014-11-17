@@ -1,4 +1,5 @@
 # [KVOController](https://github.com/facebook/KVOController)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/TongG/KVOController?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/facebook/KVOController.png?branch=master)](https://travis-ci.org/facebook/KVOController)
 [![Version](https://cocoapod-badges.herokuapp.com/v/KVOController/badge.png)](http://cocoadocs.org/docsets/KVOController)
 [![Platform](https://cocoapod-badges.herokuapp.com/p/KVOController/badge.png)](http://cocoadocs.org/docsets/KVOController)
